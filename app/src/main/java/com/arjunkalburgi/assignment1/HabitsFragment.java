@@ -1,18 +1,27 @@
 package com.arjunkalburgi.assignment1;
 
+import com.arjunkalburgi.assignment1.HabitStore;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Arjun on 2016-09-23.
  */
-public class HabitsFragment extends Fragment {
+public class HabitsFragment extends Fragment implements iView {
     // Store instance variables
-    private String title;
-    private int page;
+    private static final String FILENAME = "file.sav";
+    public static ListView oldTasksList;
+    public static List<String> taskList = new ArrayList<String>();
+    private ArrayAdapter<String> taskAdapter;
+    final HabitStore habitStore = HabitStore.getInstance();
 
     // newInstance constructor for creating fragment with arguments
     public static HabitsFragment newInstance() {
@@ -24,8 +33,6 @@ public class HabitsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        page = getArguments().getInt("someInt", 0);
-//        title = getArguments().getString("someTitle");
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -33,8 +40,32 @@ public class HabitsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.habit_fragment_layout, container, false);
-//        TextView tvLabel = (TextView) view.findViewById(R.id.tvLabel);
-//        tvLabel.setText(page + " -- " + title);
+        ListView list = (ListView) view.findViewById(R.id.list_todo);
+        this.taskAdapter = new ArrayAdapter<String>(getContext(), R.layout.item_todo);
+        list.setAdapter(taskAdapter);
         return view;
+    }
+
+    public void notifyChange() {
+        taskList = habitStore.getHabits(getActivity());
+        taskAdapter.clear();
+        taskAdapter.addAll(taskList);
+        taskAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        habitStore.addView(this);
+        taskList = habitStore.getHabits(getActivity());
+        taskAdapter.clear();
+        taskAdapter.addAll(taskList);
+        taskAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        habitStore.removeView(this);
     }
 }

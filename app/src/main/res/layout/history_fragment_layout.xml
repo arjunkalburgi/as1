@@ -5,8 +5,8 @@
     android:weightSum="1">
 
     <ListView
-        android:layout_width="match_parent"
+        android:id="@+id/list_hist"
+        android:layout_width="wrap_content"
         android:layout_height="460dp"
-        android:id="@+id/listView"
         android:layout_weight="1.21" />
 </LinearLayout>

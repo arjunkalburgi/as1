@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 /**
  * Created by Arjun on 2016-09-23.
  */
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements iView {
     // Store instance variables
-    private String title;
-    private int page;
 
     // newInstance constructor for creating fragment with arguments
     public static HistoryFragment newInstance() {
@@ -33,8 +31,10 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_fragment_layout, container, false);
-        //TextView tvLabel = (TextView) view.findViewById(R.id.tvLabel);
-        //tvLabel.setText(page + " -- " + title);
         return view;
+    }
+
+    public void notifyChange() {
+        // refresh history list
     }
 }
