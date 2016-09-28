@@ -23,7 +23,9 @@ import java.util.List;
 public class HabitStore {
     List<iView> views = new ArrayList<iView>();
     List<String> habits = new ArrayList<String>();
+    List<String> historyHabits = new ArrayList<String>();
     private static final String FILENAME = "file.sav";
+    private static final String HistoryFILENAME = "hist_file.sav";
     private static final String TAG = "MainActivity";
 
     private static HabitStore instance = null;
@@ -33,7 +35,6 @@ public class HabitStore {
         if (instance == null) instance = new HabitStore();
         return instance;
     }
-
 
     void addView(iView v) {
         views.add(v);
@@ -47,6 +48,65 @@ public class HabitStore {
         Log.d(TAG, "task has been added, there is a new thing!");
         for (iView v : views) {
             v.notifyChange();
+        }
+    }
+
+    private void addHistoryHabit(String s, Context context) {
+        historyHabits.add(s);
+        try {
+            FileOutputStream fos = context.openFileOutput(HistoryFILENAME, 0);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(historyHabits, writer);
+            writer.flush();
+
+            notifyViewsOfChange();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public List<String> getHistoryHabits(Context context) {
+        try {
+            FileInputStream fis = context.openFileInput(HistoryFILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+            Gson gson = new Gson();
+            // code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt TODAY
+            Type lisType = new TypeToken<ArrayList<String>>() {}.getType();
+            historyHabits = gson.fromJson(in, lisType);
+
+            return historyHabits;
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void deleteHabit(String s, Context context) {
+        habits.remove(s);
+        try {
+            FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(habits, writer);
+            writer.flush();
+
+            addHistoryHabit(s, context);
+            notifyViewsOfChange();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 

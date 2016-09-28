@@ -1,11 +1,12 @@
 package com.arjunkalburgi.assignment1;
 
-import com.arjunkalburgi.assignment1.HabitStore;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class HabitsFragment extends Fragment implements iView {
     // Store instance variables
-    private static final String FILENAME = "file.sav";
+    private static final String TAG = "MainActivity";
     public static ListView oldTasksList;
     public static List<String> taskList = new ArrayList<String>();
     private ArrayAdapter<String> taskAdapter;
@@ -43,6 +44,15 @@ public class HabitsFragment extends Fragment implements iView {
         ListView list = (ListView) view.findViewById(R.id.list_todo);
         this.taskAdapter = new ArrayAdapter<String>(getContext(), R.layout.item_todo);
         list.setAdapter(taskAdapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "Task dat bin clicked " + parent.getItemAtPosition(position));
+                habitStore.deleteHabit((String)parent.getItemAtPosition(position), getActivity());
+            }
+        });
+
         return view;
     }
 
