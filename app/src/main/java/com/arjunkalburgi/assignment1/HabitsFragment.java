@@ -20,8 +20,8 @@ public class HabitsFragment extends Fragment implements iView {
     // Store instance variables
     private static final String TAG = "MainActivity";
     public static ListView oldTasksList;
-    public static List<String> taskList = new ArrayList<String>();
-    private ArrayAdapter<String> taskAdapter;
+    public static List<Task> taskList = new ArrayList<Task>();
+    private ArrayAdapter<Task> taskAdapter;
     final HabitStore habitStore = HabitStore.getInstance();
 
     // newInstance constructor for creating fragment with arguments
@@ -42,14 +42,14 @@ public class HabitsFragment extends Fragment implements iView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.habit_fragment_layout, container, false);
         ListView list = (ListView) view.findViewById(R.id.list_todo);
-        this.taskAdapter = new ArrayAdapter<String>(getContext(), R.layout.item_todo);
+        this.taskAdapter = new ArrayAdapter<Task>(getContext(), R.layout.item_todo);
         list.setAdapter(taskAdapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "Task dat bin clicked " + parent.getItemAtPosition(position));
-                habitStore.deleteHabit((String)parent.getItemAtPosition(position), getActivity());
+                habitStore.deleteHabit((Task)parent.getItemAtPosition(position), getActivity());
             }
         });
 

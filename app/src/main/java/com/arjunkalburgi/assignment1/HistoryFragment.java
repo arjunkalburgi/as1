@@ -20,8 +20,8 @@ public class HistoryFragment extends Fragment implements iView {
     // Store instance variables
     private static final String TAG = "MainActivity";
     public static ListView oldTasksList;
-    public static List<String> histTaskList = new ArrayList<String>();
-    private ArrayAdapter<String> histTaskAdapter;
+    public static List<Task> histTaskList = new ArrayList<Task>();
+    private ArrayAdapter<Task> histTaskAdapter;
     final HabitStore habitStore = HabitStore.getInstance();
 
     // newInstance constructor for creating fragment with arguments
@@ -43,7 +43,7 @@ public class HistoryFragment extends Fragment implements iView {
         View view = inflater.inflate(R.layout.history_fragment_layout, container, false);
 
         ListView list = (ListView) view.findViewById(R.id.list_todo);
-        this.histTaskAdapter = new ArrayAdapter<String>(getContext(), R.layout.item_todo);
+        this.histTaskAdapter = new ArrayAdapter<Task>(getContext(), R.layout.item_todo);
         list.setAdapter(histTaskAdapter);
 
         return view;

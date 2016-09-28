@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class HabitStore {
     List<iView> views = new ArrayList<iView>();
-    List<String> habits = new ArrayList<String>();
-    List<String> historyHabits = new ArrayList<String>();
+    List<Task> habits = new ArrayList<Task>();
+    List<Task> historyHabits = new ArrayList<Task>();
     private static final String FILENAME = "file.sav";
     private static final String HistoryFILENAME = "hist_file.sav";
     private static final String TAG = "MainActivity";
@@ -51,8 +51,9 @@ public class HabitStore {
         }
     }
 
-    private void addHistoryHabit(String s, Context context) {
-        historyHabits.add(s);
+    private void addHistoryHabit(Task t, Context context) {
+        t.incrementNumberOfTimesCompleted();
+        historyHabits.add(t);
         try {
             FileOutputStream fos = context.openFileOutput(HistoryFILENAME, 0);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
@@ -70,13 +71,13 @@ public class HabitStore {
         }
     }
 
-    public List<String> getHistoryHabits(Context context) {
+    public List<Task> getHistoryHabits(Context context) {
         try {
             FileInputStream fis = context.openFileInput(HistoryFILENAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
             Gson gson = new Gson();
             // code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt TODAY
-            Type lisType = new TypeToken<ArrayList<String>>() {}.getType();
+            Type lisType = new TypeToken<ArrayList<Task>>() {}.getType();
             historyHabits = gson.fromJson(in, lisType);
 
             return historyHabits;
@@ -87,11 +88,11 @@ public class HabitStore {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return null;
+        return historyHabits;
     }
 
-    public void deleteHabit(String s, Context context) {
-        habits.remove(s);
+    public void deleteHabit(Task t, Context context) {
+        habits.remove(t);
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
@@ -99,7 +100,7 @@ public class HabitStore {
             gson.toJson(habits, writer);
             writer.flush();
 
-            addHistoryHabit(s, context);
+            addHistoryHabit(t, context);
             notifyViewsOfChange();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -111,7 +112,7 @@ public class HabitStore {
     }
 
     public void saveHabit(String s, Context context) {
-        habits.add(s);
+        habits.add(new Task(s));
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
@@ -129,13 +130,13 @@ public class HabitStore {
         }
     }
 
-    public List<String> getHabits(Context context) {
+    public List<Task> getHabits(Context context) {
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
             Gson gson = new Gson();
             // code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt TODAY
-            Type lisType = new TypeToken<ArrayList<String>>() {}.getType();
+            Type lisType = new TypeToken<ArrayList<Task>>() {}.getType();
             habits = gson.fromJson(in, lisType);
 
             return habits;
@@ -146,6 +147,6 @@ public class HabitStore {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return null;
+        return habits;
     }
 }
