@@ -1,5 +1,7 @@
 package com.arjunkalburgi.assignment1;
 
+import java.util.Objects;
+
 /**
  * Created by Arjun on 2016-09-28.
  */
@@ -29,5 +31,15 @@ public class Task {
     @Override
     public String toString(){
         return "" + taskName + " (" + numberOfTimesCompleted + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == this.getClass()) {
+            Task t = (Task)obj;
+            if (this.getTaskName().equals(t.getTaskName()))
+                return true;
+        }
+        return false;
     }
 }

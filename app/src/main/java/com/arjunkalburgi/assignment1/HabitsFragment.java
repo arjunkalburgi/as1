@@ -49,7 +49,7 @@ public class HabitsFragment extends Fragment implements iView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "Task dat bin clicked " + parent.getItemAtPosition(position));
-                habitStore.deleteHabit((Task)parent.getItemAtPosition(position), getActivity());
+                habitStore.completeHabit((Task)parent.getItemAtPosition(position), getActivity());
             }
         });
 

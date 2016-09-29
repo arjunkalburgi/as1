@@ -52,8 +52,13 @@ public class HabitStore {
     }
 
     private void addHistoryHabit(Task t, Context context) {
-        t.incrementNumberOfTimesCompleted();
-        historyHabits.add(t);
+        if (historyHabits.contains(t)) {
+            t = historyHabits.get(historyHabits.indexOf(t));
+            t.incrementNumberOfTimesCompleted();
+        } else {
+            t.incrementNumberOfTimesCompleted();
+            historyHabits.add(t);
+        }
         try {
             FileOutputStream fos = context.openFileOutput(HistoryFILENAME, 0);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
@@ -91,7 +96,7 @@ public class HabitStore {
         return historyHabits;
     }
 
-    public void deleteHabit(Task t, Context context) {
+    public void completeHabit(Task t, Context context) {
         habits.remove(t);
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);
@@ -112,7 +117,14 @@ public class HabitStore {
     }
 
     public void saveHabit(String s, Context context) {
-        habits.add(new Task(s));
+        if (habits.contains(new Task(s))) {
+            return;
+        }
+        if (historyHabits.contains(new Task(s))) {
+            habits.add(historyHabits.get(historyHabits.indexOf(new Task(s))));
+        } else {
+            habits.add(new Task(s));
+        }
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
