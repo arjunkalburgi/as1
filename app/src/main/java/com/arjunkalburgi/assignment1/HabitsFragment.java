@@ -41,17 +41,10 @@ public class HabitsFragment extends Fragment implements iView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.habit_fragment_layout, container, false);
-        ListView list = (ListView) view.findViewById(R.id.list_todo);
-        this.taskAdapter = new ArrayAdapter<Task>(getContext(), R.layout.item_todo);
-        list.setAdapter(taskAdapter);
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "Task dat bin clicked " + parent.getItemAtPosition(position));
-                habitStore.completeHabit((Task)parent.getItemAtPosition(position), getActivity());
-            }
-        });
+        this.taskAdapter = new TasksAdapter(this.getContext(), taskList);
+        ListView list = (ListView) view.findViewById(R.id.list_todo);
+        list.setAdapter(taskAdapter);
 
         return view;
     }

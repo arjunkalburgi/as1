@@ -51,6 +51,8 @@ public class HabitStore {
         }
     }
 
+    // history habits stuff
+
     private void addHistoryHabit(Task t, Context context) {
         if (historyHabits.contains(t)) {
             t = historyHabits.get(historyHabits.indexOf(t));
@@ -94,6 +96,51 @@ public class HabitStore {
             e.printStackTrace();
         }
         return historyHabits;
+    }
+
+    public void deleteHistoryHabit(Task t, Context context) {
+        if (historyHabits.contains(t)) {
+            historyHabits.remove(t);
+        }
+        try {
+            FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(habits, writer);
+            writer.flush();
+
+            notifyViewsOfChange();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    //habits stuff
+
+    public void deleteHabit(Task t, Context context) {
+        if (habits.contains(t)) {
+            habits.remove(t);
+        }
+        try {
+            FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(habits, writer);
+            writer.flush();
+
+            deleteHistoryHabit(t, context);
+            notifyViewsOfChange();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void completeHabit(Task t, Context context) {
