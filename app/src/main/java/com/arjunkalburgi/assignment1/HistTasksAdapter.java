@@ -14,15 +14,15 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 /**
- * Created by Arjun on 2016-09-29.
+ * Created by Arjun on 2016-09-30.
  */
 
-public class TasksAdapter extends ArrayAdapter<Task> {
+public class HistTasksAdapter extends ArrayAdapter<Task> {
 
     final HabitStore habitStore = HabitStore.getInstance();
 
-    public TasksAdapter(Context context, List<Task> tasks) {
-        super(context, R.layout.item_todo, tasks);
+    public HistTasksAdapter(Context context, List<Task> tasks) {
+        super(context, R.layout.item_hist, tasks);
     }
 
     @Override
@@ -31,18 +31,18 @@ public class TasksAdapter extends ArrayAdapter<Task> {
         final Task task = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_todo, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_hist, parent, false);
         }
         // Lookup view for data population
         TextView habitInfo = (TextView) convertView.findViewById(R.id.habit_info);
-        Button completeButton = (Button) convertView.findViewById(R.id.complete_button);
+        Button repeatButton = (Button) convertView.findViewById(R.id.repeat_button);
         Button deleteButton = (Button) convertView.findViewById(R.id.delete_button);
         // Populate the data into the template view using the data object
         habitInfo.setText(task.toString());
-        completeButton.setOnClickListener(new View.OnClickListener() {
+        repeatButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Log.d(TAG, "Task dat bin completed: " + task.getTaskName());
-                habitStore.completeHabit(task, view.getContext());
+                Log.d(TAG, "Task dat bin repeated: " + task.getTaskName());
+                habitStore.saveHabit(task.getTaskName(), view.getContext());
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -56,3 +56,4 @@ public class TasksAdapter extends ArrayAdapter<Task> {
     }
 
 }
+

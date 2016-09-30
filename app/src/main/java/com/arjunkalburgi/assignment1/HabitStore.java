@@ -124,6 +124,8 @@ public class HabitStore {
     public void deleteHabit(Task t, Context context) {
         if (habits.contains(t)) {
             habits.remove(t);
+        } else {
+            deleteHistoryHabit(t, context);
         }
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);

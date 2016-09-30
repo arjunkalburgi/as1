@@ -42,9 +42,10 @@ public class HistoryFragment extends Fragment implements iView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.history_fragment_layout, container, false);
 
+        this.histTaskAdapter = new HistTasksAdapter(this.getContext(), histTaskList);
         ListView list = (ListView) view.findViewById(R.id.list_todo);
-        this.histTaskAdapter = new ArrayAdapter<Task>(getContext(), R.layout.item_todo);
         list.setAdapter(histTaskAdapter);
+
 
         return view;
     }
