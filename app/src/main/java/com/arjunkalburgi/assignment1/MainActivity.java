@@ -77,21 +77,19 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final EditText taskEditText = new EditText(MainActivity.this);
+                //final EditText taskEditText = new EditText(MainActivity.this);
+                final View inputView = LayoutInflater.from(MainActivity.this).inflate(R.layout.days_of_the_week, null);
                 AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Add a new task")
-                        .setMessage("What do you want to do next?")
-                        .setView(taskEditText)
+                        .setView(inputView)
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String task = String.valueOf(taskEditText.getText());
-                                Log.d(TAG, "Task to add: " + task);
-                                habitStore.saveHabit(task, MainActivity.this);
+                                EditText task = (EditText) inputView.findViewById(R.id.task_name);
+                                Task newTask = new Task(task.getText().toString());
 
-//                                taskList.add(task);
-//                                taskAdapter.notifyDataSetChanged();
-//                                saveInFile();
+                                Log.d(TAG, "Task to add: " + newTask.getTaskName());
+                                habitStore.saveHabit(task.getText().toString(), MainActivity.this);
                             }
                         })
                         .setNegativeButton("Cancel", null)

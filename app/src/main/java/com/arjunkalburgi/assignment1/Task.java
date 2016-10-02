@@ -1,5 +1,8 @@
 package com.arjunkalburgi.assignment1;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -9,10 +12,13 @@ import java.util.Objects;
 public class Task {
     private String taskName;
     private int numberOfTimesCompleted;
+    private SimpleDateFormat dateEntered;
+    private DaysOfTheWeek repeatDays = new DaysOfTheWeek();
 
     Task(String s) {
         taskName = s;
         numberOfTimesCompleted = 0;
+        dateEntered = new SimpleDateFormat("yyyy-mm-dd");
     }
 
     public int incrementNumberOfTimesCompleted() {
@@ -27,6 +33,17 @@ public class Task {
     public int getNumberOfTimesCompleted() {
         return numberOfTimesCompleted;
     }
+
+    public String getStartDate() {
+        SimpleDateFormat MDY = new SimpleDateFormat("MMM dd, yyyy");
+        return "Started on " + MDY.format(dateEntered);
+    }
+
+    public String getRepeatDays() {
+        return "Repeats on " + repeatDays.toString();
+    }
+
+    public void setTaskToRepeatOn(String day) {repeatDays.selectDay(day);}
 
     @Override
     public String toString(){
