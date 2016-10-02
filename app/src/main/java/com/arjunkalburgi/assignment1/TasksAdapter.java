@@ -35,10 +35,13 @@ public class TasksAdapter extends ArrayAdapter<Task> {
         }
         // Lookup view for data population
         TextView habitInfo = (TextView) convertView.findViewById(R.id.habit_info);
+        TextView habitDetails = (TextView) convertView.findViewById(R.id.habit_details);
         Button completeButton = (Button) convertView.findViewById(R.id.complete_button);
         Button deleteButton = (Button) convertView.findViewById(R.id.delete_button);
         // Populate the data into the template view using the data object
         habitInfo.setText(task.toString());
+        Log.d(TAG, "Task dat bin: " + task.getStartDate() + " " + task.getRepeatDays());
+        habitDetails.setText(task.getStartDate() + " and " + task.getRepeatDays());
         completeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Log.d(TAG, "Task dat bin completed: " + task.getTaskName());

@@ -12,13 +12,13 @@ import java.util.Objects;
 public class Task {
     private String taskName;
     private int numberOfTimesCompleted;
-    private SimpleDateFormat dateEntered;
+    private Date dateEntered;
     private DaysOfTheWeek repeatDays = new DaysOfTheWeek();
 
     Task(String s) {
         taskName = s;
         numberOfTimesCompleted = 0;
-        dateEntered = new SimpleDateFormat("yyyy-mm-dd");
+        dateEntered = new Date();
     }
 
     public int incrementNumberOfTimesCompleted() {

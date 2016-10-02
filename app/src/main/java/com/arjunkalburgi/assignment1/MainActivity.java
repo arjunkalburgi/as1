@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -88,7 +89,29 @@ public class MainActivity extends AppCompatActivity {
                                 EditText task = (EditText) inputView.findViewById(R.id.task_name);
                                 Task newTask = new Task(task.getText().toString());
 
-                                Log.d(TAG, "Task to add: " + newTask.getTaskName());
+                                ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
+                                CheckBox sundayBox = (CheckBox) inputView.findViewById(R.id.checkbox_sunday);
+                                checkBoxes.add(sundayBox);
+                                CheckBox mondayBox = (CheckBox) inputView.findViewById(R.id.checkbox_monday);
+                                checkBoxes.add(mondayBox);
+                                CheckBox tuesdayBox = (CheckBox) inputView.findViewById(R.id.checkbox_tuesday);
+                                checkBoxes.add(tuesdayBox);
+                                CheckBox wednesdayBox = (CheckBox) inputView.findViewById(R.id.checkbox_wednesday);
+                                checkBoxes.add(wednesdayBox);
+                                CheckBox thursdayBox = (CheckBox) inputView.findViewById(R.id.checkbox_thursday);
+                                checkBoxes.add(thursdayBox);
+                                CheckBox fridayBox = (CheckBox) inputView.findViewById(R.id.checkbox_friday);
+                                checkBoxes.add(fridayBox);
+                                CheckBox saturdayBox = (CheckBox) inputView.findViewById(R.id.checkbox_saturday);
+                                checkBoxes.add(saturdayBox);
+
+                                for (CheckBox checkBox : checkBoxes) {
+                                    if (sundayBox.isChecked()) {
+                                        newTask.setTaskToRepeatOn(checkBox.getText().toString());
+                                    }
+                                }
+
+                                Log.d(TAG, "Task to add: " + newTask.getTaskName() + " " + sundayBox.getText().toString());
                                 habitStore.saveHabit(task.getText().toString(), MainActivity.this);
                             }
                         })
