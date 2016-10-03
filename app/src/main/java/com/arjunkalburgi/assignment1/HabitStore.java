@@ -49,6 +49,42 @@ public class HabitStore {
         }
     }
 
+    public void clear(Context context) {
+        habits.clear();
+        try {
+            FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(habits, writer);
+            writer.flush();
+
+            //notifyViewsOfChange();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        historyHabits.clear();
+        try {
+            FileOutputStream fos = context.openFileOutput(HistoryFILENAME, 0);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(historyHabits, writer);
+            writer.flush();
+
+            //notifyViewsOfChange();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     // history habits stuff
     private void addHistoryHabit(Task t, Context context) {
         if (historyHabits.contains(t)) {
