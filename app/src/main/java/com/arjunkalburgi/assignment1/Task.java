@@ -2,8 +2,6 @@ package com.arjunkalburgi.assignment1;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by Arjun on 2016-09-28.
@@ -35,12 +33,16 @@ public class Task {
     }
 
     public String getStartDate() {
-        SimpleDateFormat MDY = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat MDY = new SimpleDateFormat("MMM dd");
         return "Started on " + MDY.format(dateEntered);
     }
 
     public String getRepeatDays() {
         return "Repeats on " + repeatDays.toString();
+    }
+
+    public boolean doesTaskRepeatOn(String day) {
+        return repeatDays.isDaySelected(day);
     }
 
     public void setTaskToRepeatOn(String day) {repeatDays.selectDay(day);}

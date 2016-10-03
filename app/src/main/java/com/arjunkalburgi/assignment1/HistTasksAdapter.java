@@ -40,17 +40,16 @@ public class HistTasksAdapter extends ArrayAdapter<Task> {
         Button deleteButton = (Button) convertView.findViewById(R.id.delete_button);
         // Populate the data into the template view using the data object
         habitInfo.setText(task.toString());
-        Log.d(TAG, "Task dat bin: " + task.getStartDate() + " " + task.getRepeatDays());
         habitDetails.setText(task.getStartDate() + " and " + task.getRepeatDays());
         repeatButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Log.d(TAG, "Task dat bin repeated: " + task.getTaskName());
-                habitStore.saveHabit(task.getTaskName(), view.getContext());
+                //Log.d(TAG, "Task dat bin repeated: " + task.getTaskName());
+                habitStore.saveHabit(task, view.getContext());
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Log.d(TAG, "Task dat bin deleted: " + task.getTaskName());
+                //Log.d(TAG, "Task dat bin deleted: " + task.getTaskName());
                 habitStore.deleteHabit(task, view.getContext());
             }
         });

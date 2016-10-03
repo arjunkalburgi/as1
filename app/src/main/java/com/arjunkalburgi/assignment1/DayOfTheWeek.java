@@ -10,34 +10,35 @@ public class DayOfTheWeek {
     private String letter;
     private boolean seletected = false;
 
-    public DayOfTheWeek(String name) {
-        switch (name) {
+    public DayOfTheWeek(String n) {
+        this.name = n;
+        switch (n) {
             case "Sunday":
-                this.number = 1;
+                this.number = 0;
                 this.letter = "S";
                 break;
             case "Monday":
-                this.number = 2;
+                this.number = 1;
                 this.letter = "M";
                 break;
             case "Tuesday":
-                this.number = 3;
+                this.number = 2;
                 this.letter = "T";
                 break;
             case "Wednesday":
-                this.number = 4;
+                this.number = 3;
                 this.letter = "W";
                 break;
             case "Thursday":
-                this.number = 5;
+                this.number = 4;
                 this.letter = "R";
                 break;
             case "Friday":
-                this.number = 6;
+                this.number = 5;
                 this.letter = "F";
                 break;
             case "Saturday":
-                this.number = 2;
+                this.number = 6;
                 this.letter = "S";
                 break;
         }

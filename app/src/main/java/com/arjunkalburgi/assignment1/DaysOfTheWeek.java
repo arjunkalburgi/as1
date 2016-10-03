@@ -1,5 +1,7 @@
 package com.arjunkalburgi.assignment1;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -10,22 +12,23 @@ import java.util.Hashtable;
 
 public class DaysOfTheWeek extends ArrayList<DayOfTheWeek> {
     // this is a list of all the Days of the week that the item will repeat on!
+    private static final String TAG = "MainActivity";
 
     public DaysOfTheWeek() {
-        this.add(0, new DayOfTheWeek("Sunday"));
-        this.add(1, new DayOfTheWeek("Monday"));
-        this.add(2, new DayOfTheWeek("Tuesday"));
-        this.add(3, new DayOfTheWeek("Wednesday"));
-        this.add(4, new DayOfTheWeek("Thursday"));
-        this.add(5, new DayOfTheWeek("Friday"));
-        this.add(6, new DayOfTheWeek("Saturday"));
+        this.add(new DayOfTheWeek("Sunday"));
+        this.add(new DayOfTheWeek("Monday"));
+        this.add(new DayOfTheWeek("Tuesday"));
+        this.add(new DayOfTheWeek("Wednesday"));
+        this.add(new DayOfTheWeek("Thursday"));
+        this.add(new DayOfTheWeek("Friday"));
+        this.add(new DayOfTheWeek("Saturday"));
     }
 
     public DayOfTheWeek getDay(DayOfTheWeek d) {
         return this.get(d.getNumber());
     }
 
-    public boolean isDaySeletect(String s) {
+    public boolean isDaySelected(String s) {
         return this.getDay(new DayOfTheWeek(s)).isSeletected();
     }
 
@@ -35,6 +38,16 @@ public class DaysOfTheWeek extends ArrayList<DayOfTheWeek> {
 
     @Override
     public String toString() {
-        return "";
+        String returnString = "";
+
+
+        for (DayOfTheWeek d : this) {
+            if (d.isSeletected()) {
+                returnString = returnString + d.getName() + ", ";
+            }
+        }
+        Log.d(TAG, "for each loop " + this.get(0).getName());
+
+        return returnString;
     }
 }

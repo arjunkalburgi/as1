@@ -45,7 +45,6 @@ public class HabitStore {
     }
 
     void notifyViewsOfChange() {
-        Log.d(TAG, "task has been added, there is a new thing!");
         for (iView v : views) {
             v.notifyChange();
         }
@@ -165,14 +164,13 @@ public class HabitStore {
         }
     }
 
-    public void saveHabit(String s, Context context) {
-        if (habits.contains(new Task(s))) {
+    public void saveHabit(Task t, Context context) {
+        if (habits.contains(t)) {
             return;
-        }
-        if (historyHabits.contains(new Task(s))) {
-            habits.add(historyHabits.get(historyHabits.indexOf(new Task(s))));
+        } else if (historyHabits.contains(t)) {
+            habits.add(historyHabits.get(historyHabits.indexOf(t)));
         } else {
-            habits.add(new Task(s));
+            habits.add(t);
         }
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);

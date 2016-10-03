@@ -106,13 +106,13 @@ public class MainActivity extends AppCompatActivity {
                                 checkBoxes.add(saturdayBox);
 
                                 for (CheckBox checkBox : checkBoxes) {
-                                    if (sundayBox.isChecked()) {
+                                    if (checkBox.isChecked()) {
                                         newTask.setTaskToRepeatOn(checkBox.getText().toString());
                                     }
                                 }
 
-                                Log.d(TAG, "Task to add: " + newTask.getTaskName() + " " + sundayBox.getText().toString());
-                                habitStore.saveHabit(task.getText().toString(), MainActivity.this);
+                                //Log.d(TAG, "Task to add: " + newTask.getTaskName() + " " + newTask.getRepeatDays());
+                                habitStore.saveHabit(newTask, MainActivity.this);
                             }
                         })
                         .setNegativeButton("Cancel", null)
