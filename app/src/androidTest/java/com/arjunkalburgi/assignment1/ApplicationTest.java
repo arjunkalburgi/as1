@@ -138,7 +138,7 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2<MainActivi
         assertTrue(habits.contains(newTask)); // because repeat
         assertTrue(histhabits.contains(newTask));
 
-        habitStore.deleteHistoryHabit(newTask, getActivity());
+        habitStore.deleteHabit(newTask, getActivity());
         habits = habitStore.getHabits(getActivity());
         histhabits = habitStore.getHistoryHabits(getActivity());
 
@@ -160,10 +160,5 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2<MainActivi
         habits = habitStore.getHabits(getActivity());
 
         assertTrue(habits.contains(newTask)); // because repeat
-
-        habitStore.deleteHistoryHabit(newTask, getActivity());
-        habits = habitStore.getHabits(getActivity());
-
-        assertFalse(habits.contains(newTask));
     }
 }
