@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 EditText task = (EditText) inputView.findViewById(R.id.task_name);
+                                if (task.getText().toString().trim() == "") {return;}
                                 Task newTask = new Task(task.getText().toString());
 
                                 ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();

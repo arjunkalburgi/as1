@@ -33,7 +33,7 @@ public class Task {
     }
 
     public String getStartDate() {
-        SimpleDateFormat MDY = new SimpleDateFormat("MMM dd");
+        SimpleDateFormat MDY = new SimpleDateFormat("yyyy-mm-dd");
         return "Started on " + MDY.format(dateEntered);
     }
 
