@@ -49,7 +49,7 @@ public class HistTasksAdapter extends ArrayAdapter<Task> {
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //Log.d(TAG, "Task dat bin deleted: " + task.getTaskName());
+                Log.d(TAG, "Task dat bin deleted: " + task.getTaskName());
                 habitStore.deleteHabit(task, view.getContext());
             }
         });

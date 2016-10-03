@@ -9,27 +9,27 @@ import java.util.Date;
 
 public class Task {
     private String taskName;
-    private int numberOfTimesCompleted;
+    private int numTimesCompleted;
     private Date dateEntered;
     private DaysOfTheWeek repeatDays = new DaysOfTheWeek();
 
     Task(String s) {
         taskName = s;
-        numberOfTimesCompleted = 0;
+        numTimesCompleted = 0;
         dateEntered = new Date();
     }
 
-    public int incrementNumberOfTimesCompleted() {
-        numberOfTimesCompleted++;
-        return numberOfTimesCompleted;
+    public int incrementNumTimesCompleted() {
+        numTimesCompleted++;
+        return numTimesCompleted;
     }
 
     public String getTaskName() {
         return taskName;
     }
 
-    public int getNumberOfTimesCompleted() {
-        return numberOfTimesCompleted;
+    public int getNumTimesCompleted() {
+        return numTimesCompleted;
     }
 
     public String getStartDate() {
@@ -49,7 +49,7 @@ public class Task {
 
     @Override
     public String toString(){
-        return "" + taskName + " (" + numberOfTimesCompleted + ")";
+        return "" + taskName + " (" + numTimesCompleted + ")";
     }
 
     @Override

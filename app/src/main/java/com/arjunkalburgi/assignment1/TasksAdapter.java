@@ -40,7 +40,6 @@ public class TasksAdapter extends ArrayAdapter<Task> {
         Button deleteButton = (Button) convertView.findViewById(R.id.delete_button);
         // Populate the data into the template view using the data object
         habitInfo.setText(task.toString());
-        Log.d(TAG, "Task dat bin: " + task.getStartDate() + " " + task.getRepeatDays());
         habitDetails.setText(task.getStartDate() + " and " + task.getRepeatDays());
         completeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

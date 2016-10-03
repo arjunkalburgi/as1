@@ -1,7 +1,6 @@
 package com.arjunkalburgi.assignment1;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -51,13 +50,12 @@ public class HabitStore {
     }
 
     // history habits stuff
-
     private void addHistoryHabit(Task t, Context context) {
         if (historyHabits.contains(t)) {
             t = historyHabits.get(historyHabits.indexOf(t));
-            t.incrementNumberOfTimesCompleted();
+            t.incrementNumTimesCompleted();
         } else {
-            t.incrementNumberOfTimesCompleted();
+            t.incrementNumTimesCompleted();
             historyHabits.add(t);
         }
         try {
@@ -102,10 +100,10 @@ public class HabitStore {
             historyHabits.remove(t);
         }
         try {
-            FileOutputStream fos = context.openFileOutput(FILENAME, 0);
+            FileOutputStream fos = context.openFileOutput(HistoryFILENAME, 0);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
             Gson gson = new Gson();
-            gson.toJson(habits, writer);
+            gson.toJson(historyHabits, writer);
             writer.flush();
 
             notifyViewsOfChange();
@@ -119,12 +117,9 @@ public class HabitStore {
     }
 
     //habits stuff
-
     public void deleteHabit(Task t, Context context) {
         if (habits.contains(t)) {
             habits.remove(t);
-        } else {
-            deleteHistoryHabit(t, context);
         }
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, 0);

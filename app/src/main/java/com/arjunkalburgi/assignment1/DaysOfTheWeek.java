@@ -39,15 +39,11 @@ public class DaysOfTheWeek extends ArrayList<DayOfTheWeek> {
     @Override
     public String toString() {
         String returnString = "";
-
-
         for (DayOfTheWeek d : this) {
             if (d.isSeletected()) {
                 returnString = returnString + d.getName() + ", ";
             }
         }
-        Log.d(TAG, "for each loop " + this.get(0).getName());
-
         return returnString;
     }
 }
